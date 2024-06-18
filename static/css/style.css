@@ -70,4 +70,23 @@
     background: -webkit-linear-gradient(to right, #56ccf2, #2f80ed); /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #39c3f1, #2f80ed); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     border: #6a6a6a !important;
+    margin-top: 15px;
+}
+
+.help-text{
+  font-family: "ProximaNovaRegular";
+  font-size: 12px;
+  margin-top: 0px;
+  padding-top: 0px;
+  color: #3a3a3a; /* fallback for old browsers */
+}
+
+.error {
+  border-color: rgb(255, 71, 71) !important;
+}
+
+.error-message {
+  color: rgb(255, 94, 94);
+  display: none;
+
 }
