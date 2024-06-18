@@ -51,7 +51,7 @@ def replace_placeholders(paragraph, doc_number, issue_date, course, name, days, 
     start_date_obj = datetime.strptime(start_date, "%Y-%m-%d")
     end_date_obj = datetime.strptime(end_date, "%Y-%m-%d")
 
-    formatted_date = f'від «{date_obj.day}» {date_obj.month} {date_obj.year} року'
+    formatted_date = f'від «{date_obj.day}» {months[date_obj.month]} {date_obj.year} року'
     formatted_start_date = f'з «{start_date_obj.day}» {months[start_date_obj.month]} {start_date_obj.year} року'
     formatted_end_date = f'по «{end_date_obj.day}» {months[end_date_obj.month]} {end_date_obj.year} року'
 
