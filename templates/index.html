@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../static/css/style.css"/>
-    <title>Document Generator</title>
+    <title>Довідка-виклик</title>
+    <link rel="shortcut icon" href="../static/images/logo.png" type="image/png">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
@@ -20,7 +21,7 @@
         <form action="/generate" method="POST" class="mt-3">
             <div class="form-group">
                 <label for="doc_number">Номер довідки</label>
-                <input type="text" class="form-control" id="doc_number" name="doc_number" required>
+                <input type="number" class="form-control" id="doc_number" name="doc_number" required>
             </div>
             <div class="form-group">
                 <label for="issue_date">Дата видачі</label>
@@ -28,11 +29,12 @@
             </div>
             <div class="form-group">
                 <label for="course">Курс</label>
-                <input type="text" class="form-control" id="course" name="course" required>
+                <input type="number" class="form-control" id="course" name="course" required>
+                <span id="course-error-message" class="error-message">❌ Курс повинен бути числом від 1 до 6</span>
             </div>
             <div class="form-group">
-                <label for="name">Прізвище, ім'я, по батькові студента</label>
-                <input type="text" class="form-control" id="name" name="name" required>
+                <label for="name">Прізвище, ім'я, по батькові студента<br><span class="help-text">Будь ласка, вводіть дані у давальному відмінку</span></label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Петренку Петру Петровичу" required>
             </div>
             <div class="form-group">
                 <label for="days">Кількість днів</label>
@@ -46,9 +48,50 @@
                 <label for="end_date">Закінчення заїду</label>
                 <input type="date" class="form-control" id="end_date" name="end_date" required>
             </div>
+            <span id="start-date-error-message" class="error-message">❌ Дата початку не може бути пізніше ніж дата закінчення</span>
             <button type="submit" class="btn btn-primary submit-btn">Згенерувати довідку ⭳</button>
         </form>
+
     </div>
 </div>
+<script>
+    document.querySelector('form').addEventListener('submit', function(event) {
+        let courseInput = document.getElementById('course');
+        let courseValue = parseInt(courseInput.value, 10);
+        let courseErrorMessage = document.getElementById('course-error-message');
+
+        let startDateInput = document.getElementById('start_date');
+        let endDateInput = document.getElementById('end_date');
+        let startDateValue = new Date(startDateInput.value);
+        let endDateValue = new Date(endDateInput.value);
+        let startDateErrorMessage = document.getElementById('start-date-error-message');
+
+        let isValid = true;
+
+        if (isNaN(courseValue) || courseValue < 1 || courseValue > 6) {
+            courseInput.classList.add('error');
+            courseErrorMessage.style.display = 'block';
+            isValid = false;
+        } else {
+            courseInput.classList.remove('error');
+            courseErrorMessage.style.display = 'none';
+        }
+
+        if (startDateValue > endDateValue) {
+            startDateInput.classList.add('error');
+            endDateInput.classList.add('error');
+            startDateErrorMessage.style.display = 'block';
+            isValid = false;
+        } else {
+            startDateInput.classList.remove('error');
+            endDateInput.classList.remove('error');
+            startDateErrorMessage.style.display = 'none';
+        }
+
+        if (!isValid) {
+            event.preventDefault();
+        }
+    });
+</script>
 </body>
 </html>
