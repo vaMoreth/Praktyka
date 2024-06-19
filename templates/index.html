@@ -47,13 +47,21 @@
                     <span id="start-date-error-message" class="error-message">❌ Дата початку не може бути пізніше ніж дата закінчення</span>
                 </div>
                 <div class="form-group">
-                    <label for="end_date">Закінчення заїду</label>
-                    <input type="date" class="form-control" id="end_date" name="end_date" required>
-                </div>
-                <button type="submit" class="btn btn-primary submit-btn">Згенерувати довідку ⭳</button>
-            </form>
-        </div>
+                <label for="end_date">Закінчення заїду</label>
+                <input type="date" class="form-control" id="end_date" name="end_date" required>
+            </div>
+            <div class="form-group">
+                <label for="format">Формат документу</label>
+                <select class="form-control" id="format" name="format">
+                    <option value="docx">DOCX</option>
+                    <option value="pdf">PDF</option>
+                </select>
+            </div>
+            <span id="start-date-error-message" class="error-message">❌ Дата початку не може бути пізніше ніж дата закінчення</span>
+            <button type="submit" class="btn btn-primary submit-btn">Згенерувати довідку ⭳</button>
+        </form>
     </div>
+</div>
     <script>
         document.querySelector('form').addEventListener('submit', function(event) {
             let isValid = true;
