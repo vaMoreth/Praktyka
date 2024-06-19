@@ -39,7 +39,7 @@
                 </div>
                 <div class="form-group">
                     <label for="days">Кількість днів</label>
-                    <input type="number" class="form-control" id="days" name="days" required>
+                    <input type="number" class="form-control" id="days" name="days" readonly>
                 </div>
                 <div class="form-group">
                     <label for="start_date">Початок заїзду</label>
@@ -105,6 +105,27 @@
                 event.preventDefault();
             }
         });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const startDateInput = document.getElementById('start_date');
+            const endDateInput = document.getElementById('end_date');
+            const daysInput = document.getElementById('days');
+
+        function calculateDays() {
+            const startDate = new Date(startDateInput.value);
+            const endDate = new Date(endDateInput.value);
+            if (startDate && endDate && endDate >= startDate) {
+                const difference = endDate - startDate;
+                const days = difference / (1000 * 60 * 60 * 24);
+                daysInput.value = Math.ceil(days);
+            } else {
+                daysInput.value = '';
+            }
+        }
+
+    startDateInput.addEventListener('change', calculateDays);
+    endDateInput.addEventListener('change', calculateDays);
+});
     </script>
 </body>
 </html>
