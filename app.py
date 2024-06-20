@@ -2,7 +2,7 @@ import os
 from datetime import datetime
 from flask import Flask, request, render_template, send_file
 from docx import Document
-
+from docx2pdf import convert
 
 app = Flask(__name__)
 
@@ -36,6 +36,7 @@ def generate():
     days = request.form['days']
     start_date = request.form['start_date']
     end_date = request.form['end_date']
+    format_type = request.form['format']
 
     template_path = 'static/InputFiles/file2.docx'
     document = Document(template_path)
@@ -52,8 +53,16 @@ def generate():
 
     process_document(document, replacements)
 
-    output_path = os.path.join('uploads', f'Довідка_{name}_{doc_number}.docx')
-    document.save(output_path)
+
+    if format_type == 'docx':
+        output_path = os.path.join('uploads', f'Довідка_{name}_{doc_number}.docx')
+        document.save(output_path)
+    elif format_type == 'pdf':
+        docx_path = os.path.join('uploads', f'Довідка_{name}_{doc_number}.docx')
+        pdf_path = os.path.join('uploads', f'Довідка_{name}_{doc_number}.pdf')
+        document.save(docx_path)
+        convert(docx_path, pdf_path)
+        output_path = pdf_path
 
     return send_file(output_path, as_attachment=True)
 
